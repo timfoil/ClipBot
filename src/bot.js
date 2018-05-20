@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
-const config = require('./config.json');
+
+//use destructuring to access token and prefix, fancy!
+const {token, prefix} = require('./config.json');
 
 const client = new Discord.Client();
 
@@ -15,4 +17,4 @@ client.on('message', msg => {
 
 console.log("hello world");
 
-client.login(config.token);
+client.login(token);
