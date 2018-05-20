@@ -1,7 +1,9 @@
 const Discord = require('discord.js');
 
-//use destructuring to access token and prefix, fancy!
-const {token, prefix} = require('./config.json');
+// use destructuring to access token and ignore prefix, fancy! (not implemented currently due to eslint rules)
+// const {token, prefix} = require('./config.json');
+
+const config = require('./config.json');
 
 const client = new Discord.Client();
 
@@ -15,6 +17,8 @@ client.on('message', msg => {
     }
 });
 
-console.log("hello world");
+console.log('hello world');
 
-client.login(token);
+// if using eslint
+// client.login(token);
+client.login(config.token);
