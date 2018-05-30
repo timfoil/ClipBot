@@ -9,18 +9,19 @@ module.exports = {
     },
 
     /**
-     * return true if the given message is a help command, false otherwise.
+     * return true if the given message is a help command, false otherwise
      */
     msgIsHelpCmd: function(msgStr, prefix = '!') {
         return msgStr.content.startsWith(prefix + 'help');
     },
 
     /**
-     * return true if the given message is a help command, false otherwise.
+     * return the specific help command query, empty string if it is the standard help query
      */
     helpCmd: function(msgStr, prefix = '!') {
         return msgStr.slice((prefix + 'help').length, msgStr.length);
     },
+
     /**
      * return command without prefix
      */
