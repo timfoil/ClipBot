@@ -5,16 +5,22 @@ module.exports = {
      * Does not have to match an actual sound command, this function only checks for a valid prefix before a word
      */
     msgIsCmd: function(msg, prefix = '!') {
-        return msg.content && msg.content.startsWith(prefix) && msg.content.length > 1;
+        return msg && msg.content && msg.content.startsWith(prefix) && msg.content.length > 1;
     },
 
     /**
-     * return true if the given message is the help command, false otherwise.
+     * return true if the given message is a help command, false otherwise.
      */
-    msgIsHelpCmd: function(msg, prefix = '!') {
-        return msg.content === prefix + 'help';
+    msgIsHelpCmd: function(msgStr, prefix = '!') {
+        return msgStr.content.startsWith(prefix + 'help');
     },
 
+    /**
+     * return true if the given message is a help command, false otherwise.
+     */
+    helpCmd: function(msgStr, prefix = '!') {
+        return msgStr.slice((prefix + 'help').length, msgStr.length);
+    },
     /**
      * return command without prefix
      */

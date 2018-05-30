@@ -56,7 +56,7 @@ class SoundBot {
 /** Handle a discord text chat message */
 function handleMsg(bot, msg) {
     if (msgIsCmd(msg, bot.prefix)) {
-        if (msgIsHelpCmd(msg, bot.prefix)) {
+        if (msgIsHelpCmd(msg.content, bot.prefix)) {
             // Get and print help
             const help = bot.context.getHelpString();
 
