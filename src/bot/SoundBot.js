@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const {msgIsCmd, msgIsHelpCmd, stripPrefixFromCmd} = require('../parse/MessageHandler');
+const {msgIsCmd, msgIsHelpCmd, stripPrefixFromCmd, helpCmd} = require('../parse/MessageHandler');
 const SoundContext = require('../sound/SoundContext');
 
 /** Bot that plays sounds in voicechat in response to predetermined commands sent in text chat*/
@@ -58,7 +58,7 @@ function handleMsg(bot, msg) {
     if (msgIsCmd(msg, bot.prefix)) {
         if (msgIsHelpCmd(msg.content, bot.prefix)) {
             // Get and print help
-            const help = bot.context.getHelpString();
+            const help = bot.context.getHelpString(helpCmd());
 
             console.log(help);
             msg.channel.send(help);
