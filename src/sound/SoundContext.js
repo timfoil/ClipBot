@@ -16,7 +16,7 @@ class SoundContext {
         if(cmd) {
             return generateGenericHelpStr(this.sounds, this.prefix);
         } else {
-            return generateSpecificHelpMsg(this.sounds, this.prefix); // TODO
+            return generateSpecificHelpMsg(this.sounds, this.prefix, cmd); // TODO
         }
     }
 }
