@@ -12,7 +12,7 @@ module.exports = {
      * return true if the given message is a help command, false otherwise
      */
     msgIsHelpCmd: function(msgStr, prefix = '!') {
-        return msgStr.content.startsWith(prefix + 'help');
+        return msgStr.startsWith(prefix + 'help');
     },
 
     /**

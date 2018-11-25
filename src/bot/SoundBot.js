@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const {msgIsCmd, msgIsHelpCmd, stripPrefixFromCmd, helpCmd} = require('../parse/MessageHandler');
 const SoundContext = require('../sound/SoundContext');
 
-/** Bot that plays sounds in voicechat in response to predetermined commands sent in text chat*/
+/** Bot that plays sounds in voicechat in response to predetermined commands sent in text chat */
 class SoundBot {
 
     /**
