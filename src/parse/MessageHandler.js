@@ -3,6 +3,7 @@ module.exports = {
     /**
      * return true if the given message is a sound command, false otherwise.
      * Does not have to match an actual sound command, this function only checks for a valid prefix before a word
+     * This is the only function in MessageHandler that takes an actual discord message, all others expect a string.
      */
     msgIsCmd: function(msg, prefix = '!') {
         return msg && msg.content && msg.content.startsWith(prefix) && msg.content.length > 1;
