@@ -58,7 +58,7 @@ function handleMsg(bot, msg) {
     if (msgIsCmd(msg, bot.prefix)) {
         if (msgIsHelpCmd(msg.content, bot.prefix)) {
             // Get and print help
-            const help = bot.context.getHelpString(helpCmd());
+            const help = bot.context.getHelpString(helpCmd(msg.content, bot.prefix));
 
             console.log(help);
             msg.channel.send(help);
