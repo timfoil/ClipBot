@@ -6,7 +6,7 @@ class SoundContext {
     constructor(dir, prefix = '!') {
         this.dir = dir;
         this.prefix = prefix;
-        this.sounds = fs.readdirSync(dir);
+        this.contexts = fs.readdirSync(dir);
     }
 
     /**
@@ -14,25 +14,44 @@ class SoundContext {
      */
     getHelpString(cmd) {
         if(cmd) {
-            return generateSpecificHelpMsg(this.sounds, this.prefix, cmd); // TODO
+            return this.generateSpecificHelpMsg(cmd); // TODO
         } else {
-            return generateGenericHelpStr(this.sounds, this.prefix);
+            return this.generateGenericHelpMsg();
         }
     }
-}
 
-function generateGenericHelpStr(sounds, prefix) {
-    const cmds = Array.from(sounds, x => prefix + x);
-    const helpCommand = prefix + 'help';
+    generateSpecificHelpMsg(cmd) {
+        if (this.contexts.includes(this.cmd)) {
+            const sounds = fs.readdirSync(this.dir + '/' + this.cmd);
+            if(sounds) {
+                return this.cmd + specificHelpBegin + sounds.length + specificHelpEnd + sounds.toString;
+            } else {
+                return noSoundsFound;
+            }
+        }
+        return this.generateUnrecognizedHelpMsg(cmd);
+    }
 
-    return beginHelp + cmds.toString() + endHelp + helpCommand;
-}
+    generateUnrecognizedHelpMsg(cmd) {
+        const cmds = Array.from(this.contexts, x => this.prefix + x).toString();
+        return 'the command "' + cmd + '"' + unrecognizedCmd + cmds;
+    }
 
-function generateSpecificHelpMsg(sounds, prefix, cmd) {
-    return null; // TODO
+    generateGenericHelpMsg() {
+        const cmds = Array.from(this.contexts, x => this.prefix + x);
+        const helpCommand = this.prefix + 'help';
+
+        return beginHelp + cmds.toString() + endHelp + helpCommand;
+    }
 }
 
 const beginHelp = 'Play a sound from airhornbot by sending a command in the discord chat! The following is a list of commands:\n';
 const endHelp = '\nYou can show this message again by typing ';
+
+const specificHelpBegin = 'is a command that has ';
+const specificHelpEnd = ' different possible sounds. To play a specific sound type a command and then the sound name as a parameter. The following is a list of the available sounds for this command:\n';
+
+const unrecognizedCmd = ' does not exist as a valid command. The following is a list of all possible commands:\n';
+const noSoundsFound = 'could not find/access any sounds for the given command';
 
 module.exports = SoundContext;

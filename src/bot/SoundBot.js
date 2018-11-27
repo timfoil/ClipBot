@@ -55,7 +55,7 @@ class SoundBot {
 
 /** Handle a discord text chat message */
 function handleMsg(bot, msg) {
-    if (msgIsCmd(msg, bot.prefix)) {
+    if (msgIsCmd(msg, bot.prefix) && !msg.author.bot) {
         if (msgIsHelpCmd(msg.content, bot.prefix)) {
             // Get and print help
             const help = bot.context.getHelpString(helpCmd(msg.content, bot.prefix));
@@ -70,6 +70,7 @@ function handleMsg(bot, msg) {
             console.log(cmd);
             msg.channel.send(cmd);
         }
+        // TODO eventually implement a reset command here that resets bot's sound context
     }
 }
 
