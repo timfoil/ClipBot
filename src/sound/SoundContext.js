@@ -14,7 +14,7 @@ class SoundContext {
      */
     getHelpString(cmd) {
         if(cmd) {
-            return this.generateSpecificHelpMsg(cmd); // TODO
+            return this.generateSpecificHelpMsg(cmd);
         } else {
             return this.generateGenericHelpMsg();
         }
@@ -24,7 +24,8 @@ class SoundContext {
         if (this.contexts.includes(this.cmd)) {
             const sounds = fs.readdirSync(this.dir + '/' + this.cmd);
             if(sounds) {
-                return this.cmd + specificHelpBegin + sounds.length + specificHelpEnd + sounds.toString;
+                return this.cmd + specificHelpBegin + sounds.length +
+                    specificHelpEnd + sounds.toString;
             } else {
                 return noSoundsFound;
             }
