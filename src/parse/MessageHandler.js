@@ -22,7 +22,7 @@ module.exports = {
     stripPrefixFromCmd: function(msgStr, prefix = '!') {
         return msgStr.substr(prefix.length);
     },
-    
+
     /**
      * Produces a help string to send the user, returns cmd specific help if cmd matches a cmd
      */
@@ -31,7 +31,7 @@ module.exports = {
         const helpQuery = msgStr.slice((prefix + 'help').length, msgStr.length);
 
         if(helpQuery) {
-            return this.generateSpecificHelpMsg(soundContext, helpQuery, prefix);
+            return this.generateSpecificHelpMsg(soundContext, helpQuery);
         } else {
             return this.generateGenericHelpMsg(soundContext, prefix);
         }
@@ -42,12 +42,12 @@ module.exports = {
      *
      * @param {string} cmd the command we want to generate a more specific help message for
      */
-    generateSpecificHelpMsg(soundContext, cmd, prefix) { //TODO needs a lot of work
-        if (soundContext.hasGroup.includes(cmd)) {
-            const sounds = ;
+    generateSpecificHelpMsg(soundContext, cmd) {
+        if (soundContext.hasSoundGroup(cmd)) {
+            const sounds = soundContext.getSoundGroup(cmd);
             if(sounds) {
                 return this.cmd + specificHelpBegin + sounds.length +
-                    specificHelpEnd + sounds.toString;
+                    specificHelpEnd + sounds.getSoundList();
             } else {
                 return noSoundsFound;
             }

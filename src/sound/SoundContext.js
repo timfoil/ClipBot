@@ -22,9 +22,16 @@ class SoundContext {
     refreshGroups() {
         //create a map of soundgroups
         this.soundGroups = {};
+        //create an array of soundGroups to loop over
+        this.groupNames = [];
         for (const soundGroup in fs.readdirSync(this.dir)) {
             this.soundGroups[soundGroup] = new SoundCollection(path.join(this.dir, soundGroup));
+            this.groupNames.push(soundGroup);
         }
+    }
+
+    get GroupNames() {
+        return this.groupNames;
     }
 
     hasSoundGroup(group) {
