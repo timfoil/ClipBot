@@ -70,7 +70,7 @@ function handleMsg(bot, msg) {
             bot.context.getSound(msg.content);
             //cant play sound in voice if not created
             // if(msg.guild) {
-            //     //TODO play voice
+            //TODO play voice
             // }
             console.log(cmd);
             msg.channel.send(cmd);

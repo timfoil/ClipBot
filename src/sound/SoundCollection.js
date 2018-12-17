@@ -60,6 +60,10 @@ class SoundCollection {
     getSoundList() {
         return this.sounds.toString();
     }
+
+    getNumSounds() {
+        return this.sounds.length();
+    }
 }
 
 module.exports = SoundCollection;

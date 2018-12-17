@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const SoundCollection = require('SoundCollection');
+const SoundCollection = require('./SoundCollection');
 
 
 /**
@@ -24,13 +24,16 @@ class SoundContext {
         this.soundGroups = {};
         //create an array of soundGroups to loop over
         this.groupNames = [];
-        for (const soundGroup in fs.readdirSync(this.dir)) {
+
+        const groups = fs.readdirSync(this.dir);
+
+        groups.forEach(function(soundGroup) {
             this.soundGroups[soundGroup] = new SoundCollection(path.join(this.dir, soundGroup));
             this.groupNames.push(soundGroup);
-        }
+        }, this);
     }
 
-    get GroupNames() {
+    getGroupNames() {
         return this.groupNames;
     }
 
