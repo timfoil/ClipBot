@@ -61,10 +61,10 @@ function generateSpecificHelpMsg(soundContext, cmd, prefix) {
  * Create and return a general help message
  */
 function generateGenericHelpMsg(soundContext, prefix) {
-    const cmds = Array.from(soundContext.groupNames, x => prefix + x);
+    const cmds = Array.from(soundContext.groupNames, x => ' ' + prefix + x);
     const helpCommand = prefix + 'help';
 
-    return beginHelp + cmds.toString() + endHelp + helpCommand;
+    return beginHelp + cmds.toString().trim() + endHelp + helpCommand;
 }
 
 /**
