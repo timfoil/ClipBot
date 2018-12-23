@@ -48,8 +48,8 @@ function generateSpecificHelpMsg(soundContext, cmd, prefix) {
         const group = soundContext.getSoundGroup(cmd);
         const sounds = group.getSoundList();
         if(sounds) {
-            return 'The ' + cmd + ' command has ' + sounds.length +
-                specificHelpEnd + sounds.getSoundList();
+            return 'The ' + cmd + ' command has ' + group.getNumSounds() +
+                specificHelpEnd + sounds;
         } else {
             return noSoundsFound;
         }

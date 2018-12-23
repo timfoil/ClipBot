@@ -15,7 +15,7 @@ class SoundCollection {
         this.sounds = [];
         this.soundMap = {};
 
-        for (const soundFile in soundFiles) {
+        soundFiles.forEach(function(soundFile) {
             //drop file suffix if it exists to get name of sound
             const soundPath = path.parse(soundFile);
 
@@ -24,8 +24,8 @@ class SoundCollection {
 
             //put the absolute path in the map and index by sound name
             this.soundMap[soundPath.name] = absPath;
-            this.sounds.push(absPath);
-        }
+            this.sounds.push(soundPath.name);
+        }, this);
     }
 
     /** Get a random sound if a sound exists, otherwise return null */
@@ -58,11 +58,11 @@ class SoundCollection {
      * Return a string containing the list of sounds in this collection
      */
     getSoundList() {
-        return this.sounds.toString();
+        return Array.from(this.sounds, x => ' ' + x).toString().trim();
     }
 
     getNumSounds() {
-        return this.sounds.length();
+        return this.sounds.length;
     }
 }
 
