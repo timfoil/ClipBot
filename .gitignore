@@ -105,3 +105,4 @@ typings/
 #rename src/config.json.example to src/config.json and configure it to your specific needs instead
 src/config.json
 .vscode/launch.json
+sounds/
