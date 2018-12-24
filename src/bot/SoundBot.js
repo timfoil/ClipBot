@@ -67,7 +67,7 @@ function handleMsg(bot, msg) {
             // do command if it exists
 
             const cmd = stripPrefixFromCmd(msg.content, bot.prefix);
-            bot.context.getSound(msg.content);
+            bot.context.getSound(cmd);
             //cant play sound in voice if not created
             // if(msg.guild) {
             //TODO play voice
