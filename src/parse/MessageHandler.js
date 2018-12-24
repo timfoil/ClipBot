@@ -20,7 +20,7 @@ module.exports = {
      * return command without prefix
      */
     stripPrefixFromCmd(msgStr, prefix = '!') {
-        return msgStr.substr(prefix.length);
+        return msgStr.slice(prefix.length);
     },
 
     /**
