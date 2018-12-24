@@ -33,9 +33,6 @@ class SoundContext {
         }, this);
     }
 
-    getGroupNames() {
-        return this.groupNames;
-    }
 
     hasSoundGroup(group) {
         return group in this.soundGroups;
