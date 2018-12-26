@@ -70,26 +70,31 @@ function handleMsg(bot, msg) {
             const soundPath = bot.context.getSoundFromGroup(cmd);
 
             if (soundPath) {
+                console.log('soundfile obtained, checking if in guild and member of a vc...');
                 // if not in guild, ignore Find user who requested
                 if (msg.guild && msg.member.voiceChannel) {
-                    console.log('soundfile obtained...');
+                    console.log('guild member in vc, joining vc...');
                     msg.member.voiceChannel.join().then(connection => {
                         console.log('connection established...');
                         const disp = connection.playFile(soundPath); // play voice
                         console.log('sound invoked...');
                         disp.setVolume(0.2);
                         disp.on('end', (endReason) => {
-                            //connection.disconnect();
+                            //connection.disconnect();  // TODO should we leave channel?
                             console.log('Done. End Reason:' + endReason);
                         });
-                    }).then(() => console.log('success'), console.log);
-                    // TODO leave channel
+
+                        //print a success message to console if successful
+                        //and direct error message to console.log if something happens
+                    }).then(() => console.log('sound played successfully'), console.log);
+
                 }
             } else {
                 //TODO sound does not exist
+                console.log('sound does not exist');
             }
 
-            console.log(cmd);
+            //console.log(cmd);
             //msg.channel.send(cmd);
         }
         // TODO eventually implement a reset command here that resets bot's sound context if required
