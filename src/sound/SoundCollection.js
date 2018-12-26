@@ -35,7 +35,8 @@ class SoundCollection {
         }
 
         //Get a num between 0 and sounds.length to pick a random sound in the array
-        return this.sounds[Math.floor(Math.random() * Math.floor(this.sounds.length))];
+        const specifier = this.sounds[Math.floor(Math.random() * Math.floor(this.sounds.length))];
+        return this.getSpecificSound(specifier);
     }
 
     /**
