@@ -72,11 +72,14 @@ function handleMsg(bot, msg) {
             if (soundPath) {
                 console.log('soundfile obtained, checking if in guild and member of a vc...');
                 // if not in guild, ignore Find user who requested
-                if (msg.guild && msg.member.voiceChannel) {
+                // (note: old version was msg.member.voiceChannel) if we need to revert
+                if (msg.guild && msg.member.voice.channel) {
                     console.log('guild member in vc, joining vc...');
-                    msg.member.voiceChannel.join().then(connection => {
+                    msg.member.voice.channel.join().then(connection => {
                         console.log('connection established...');
-                        const disp = connection.playFile(soundPath); // play voice
+
+                        //(note: function play() Used to be called playFile)
+                        const disp = connection.play(soundPath); // play voice
                         console.log('sound invoked...');
                         disp.setVolume(0.2);
                         disp.on('end', (endReason) => {
@@ -88,6 +91,8 @@ function handleMsg(bot, msg) {
                         //and direct error message to console.log if something happens
                     }).then(() => console.log('sound played successfully'), console.log);
 
+                } else {
+                    console.log('not a member of a guild or vc');
                 }
             } else {
                 //TODO sound does not exist
