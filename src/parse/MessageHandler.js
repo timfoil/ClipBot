@@ -2,18 +2,20 @@ module.exports = {
 
     /**
      * return true if the given message is a sound command, false otherwise.
-     * Does not have to match an actual sound command, this function only checks for a valid prefix before a word
-     * This is the only function in MessageHandler that takes an actual discord message, all others expect a string.
+     * Does not have to match an actual sound command, this function only
+     * checks for a valid prefix before a word. This is the only function
+     * in MessageHandler that takes an actual discord message, all others
+     * expect a string
      */
     msgIsCmd(msg, prefix = '!') {
-        return msg && msg.content && msg.content.startsWith(prefix) && msg.content.length > 1;
+        return msg && msg.content && msg.content.startsWith(prefix);
     },
 
     /**
      * return true if the given message is a help command, false otherwise
      */
     msgIsHelpCmd(msgStr, prefix = '!') {
-        return msgStr.startsWith(prefix + 'help') || msgStr.endsWith(' help');
+        return msgStr.startsWith(prefix + 'help') || msgStr.trim().endsWith(' help');
     },
 
     /**
@@ -27,21 +29,20 @@ module.exports = {
      * Produces a help string to send the user, returns cmd specific help if cmd matches a cmd
      */
     getHelpString(soundContext, msgStr, prefix = '!') {
-        const noPrefix = this.stripPrefixFromCmd(msgStr, prefix);
-
+        const noPrefix = module.exports.stripPrefixFromCmd(msgStr, prefix);
         let helpQuery;
 
         //The typical help command query
-        if(msgStr.startsWith('help')) {
-            //Get the help command without the '!help' (in default case), empty string if it is the standard help query
+        if(noPrefix.startsWith('help')) {
+            //Get the help command without the '!help' (in default case),
+            //empty string if it is the standard help query
             helpQuery = noPrefix.slice('help'.length, noPrefix.length).trim();
-
-
         //if you put 'help' after the command, you should still get a help message
-        } else if (msgStr.endsWith(' help')) {
+        } else if (noPrefix.trim().endsWith(' help')) {
             helpQuery = noPrefix.slice(0, noPrefix.lastIndexOf(' help')).trim();
         }
 
+        //return a specific message if the helpQuery exists
         if(helpQuery) {
             return generateSpecificHelpMsg(soundContext, helpQuery, prefix);
         } else {
@@ -73,10 +74,10 @@ function generateSpecificHelpMsg(soundContext, cmd, prefix) {
  * Create and return a general help message
  */
 function generateGenericHelpMsg(soundContext, prefix) {
-    const cmds = Array.from(soundContext.groupNames, x => ' ' + prefix + x);
+    const cmds = Array.from(soundContext.groupNames, x => ' ' + prefix + x).toString();
     const helpCommand = prefix + 'help';
 
-    return beginHelp + cmds.toString().trim() + endHelp + helpCommand;
+    return beginHelp + cmds.trim() + specificSoundInfo + helpCommand + showAgainHelp + helpCommand;
 }
 
 /**
@@ -85,14 +86,14 @@ function generateGenericHelpMsg(soundContext, prefix) {
  * @param {string} cmd an erroneous or unrecognized command
  */
 function generateUnrecognizedHelpMsg(soundContext, cmd, prefix) {
-    const cmds = Array.from(soundContext.groupNames, x => prefix + x).toString();
-    return 'the command "' + cmd + '"' + unrecognizedCmd + cmds;
+    const cmds = Array.from(soundContext.groupNames, x => ' ' + prefix + x).toString();
+    return 'the command "' + cmd + '"' + unrecognizedCmd + cmds.trim();
 }
 
 const beginHelp = 'Play a sound from airhornbot by sending a command in the discord chat! The following is a list of commands:\n';
-const endHelp = '\nYou can show this message again by typing ';
-
-const specificHelpEnd = ' possible sounds. To play a specific sound type the command and then the sound name as the parameter. The following is a list of its available sounds:\n';
+const showAgainHelp = ' soundCommand \nYou can show this message again by typing\n';
+const specificSoundInfo = '\nYou can also play specific sounds by typing a command and then a specific sound name. For info on what specific sounds a command has type\n'; //TODO >help soundCommand'
+const specificHelpEnd = ' possible sounds. To play a specific sound type the command and then the specific sound name after a space separator. The following is a list of its available sounds:\n';
 
 const unrecognizedCmd = ' does not exist as a valid command. The following is a list of all possible commands:\n';
 const noSoundsFound = 'could not find/access any sounds for the given command';
