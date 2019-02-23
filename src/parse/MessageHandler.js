@@ -13,7 +13,7 @@ module.exports = {
      * return true if the given message is a help command, false otherwise
      */
     msgIsHelpCmd(msgStr, prefix = '!') {
-        return msgStr.startsWith(prefix + 'help');
+        return msgStr.startsWith(prefix + 'help') || msgStr.endsWith(' help');
     },
 
     /**
@@ -27,8 +27,20 @@ module.exports = {
      * Produces a help string to send the user, returns cmd specific help if cmd matches a cmd
      */
     getHelpString(soundContext, msgStr, prefix = '!') {
-        //Get the help command without the '!help' (in default case), empty string if it is the standard help query
-        const helpQuery = msgStr.slice((prefix + 'help').length, msgStr.length).trim();
+        const noPrefix = this.stripPrefixFromCmd(msgStr, prefix);
+
+        let helpQuery;
+
+        //The typical help command query
+        if(msgStr.startsWith('help')) {
+            //Get the help command without the '!help' (in default case), empty string if it is the standard help query
+            helpQuery = noPrefix.slice('help'.length, noPrefix.length).trim();
+
+
+        //if you put 'help' after the command, you should still get a help message
+        } else if (msgStr.endsWith(' help')) {
+            helpQuery = noPrefix.slice(0, noPrefix.lastIndexOf(' help')).trim();
+        }
 
         if(helpQuery) {
             return generateSpecificHelpMsg(soundContext, helpQuery, prefix);
