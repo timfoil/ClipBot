@@ -88,9 +88,10 @@ function handleSoundCmd(soundPath, msgChannel, member) {
                 const disp = connection.play(soundPath); // play voice
                 console.log('sound invoked...');
                 disp.setVolume(0.2); //This can be modified but my sounds are fairly loud
-                disp.on('end', (endReason) => {
+                disp.on('end', () => {
                     //We stay in the channel because playing a sound after joining takes awhile
-                    console.log('Done. End Reason:' + endReason);
+                    //keep this here for debugging purposes
+                    console.log('Finished playing sound');
                 });
 
                 //print a success message to console if successful
@@ -99,15 +100,14 @@ function handleSoundCmd(soundPath, msgChannel, member) {
 
         } else {
             //send user a message that they're not in a vc since they may not realize
-            msgChannel.send('Hey ' + member.nickname + ', I can\'t play you the sound since you\'re' +
-                ' not in a voice chat. If you join one I\'d be happy to play it for you.');
-            console.log(member.nickname + ' is not in a vc');
+            msgChannel.send('Hey ' + member.user.username + ', I can\'t play you'
+                + ' the sound since you\'re not in a voice chat. If you join one'
+                + ' I\'d be happy to play it for you.');
+            console.log(member.user.username + ' is not in a vc');
         }
     } else {
         console.log('sound does not exist');
     }
-    //console.log(cmd);
-    //msg.channel.send(cmd);
 }
 
 module.exports = SoundBot;
