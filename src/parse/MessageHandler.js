@@ -77,7 +77,7 @@ function generateGenericHelpMsg(soundContext, prefix) {
     const cmds = Array.from(soundContext.groupNames, x => ' ' + prefix + x).toString();
     const helpCommand = prefix + 'help';
 
-    return beginHelp + cmds.trim() + specificSoundInfo + helpCommand + showAgainHelp + helpCommand;
+    return beginHelp + cmds.trim() + specificSoundInfo + prefix + moreInfo + helpCommand + showAgainHelp + helpCommand;
 }
 
 /**
@@ -91,9 +91,11 @@ function generateUnrecognizedHelpMsg(soundContext, cmd, prefix) {
 }
 
 const beginHelp = 'Play a sound from airhornbot by sending a command in the discord chat! The following is a list of commands:\n';
-const showAgainHelp = ' soundCommand \nYou can show this message again by typing\n';
-const specificSoundInfo = '\nYou can also play specific sounds by typing a command and then a specific sound name. For info on what specific sounds a command has type\n'; //TODO >help soundCommand'
-const specificHelpEnd = ' possible sounds. To play a specific sound type the command and then the specific sound name after a space separator. The following is a list of its available sounds:\n';
+const specificSoundInfo = '\nCommands may have multiple sounds. You can play specific sounds from a command by typing a command and then the sound\'s name after a space separator. A random sound from the command will be played if not specified. To play a random sound from all commands just type:\n';
+const moreInfo = '\nTo get a list of sound names in a command:\n';
+const showAgainHelp = ' soundCommand\nShow this message again with:\n';
+
+const specificHelpEnd = ' possible sounds. To play a specific sound type the command and then the sound name after a space separator. The following is a list of its available sounds:\n';
 
 const unrecognizedCmd = ' does not exist as a valid command. The following is a list of all possible commands:\n';
 const noSoundsFound = 'could not find/access any sounds for the given command';

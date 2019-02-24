@@ -11,17 +11,16 @@ class SoundContext {
     /**
      * Constructor for SoundContext
      * @param {string} dir Directory the sound-groups should be found
-     * @param {string} prefix prefix used to initiate commands
      */
-    constructor(dir, prefix = '!') {
+    constructor(dir) {
         this.dir = dir;
-        this.prefix = prefix;
         this.refreshGroups();
     }
 
     refreshGroups() {
         //create a map of soundgroups
         this.soundGroups = {};
+
         //create an array of soundGroups to loop over
         this.groupNames = [];
 
@@ -44,7 +43,7 @@ class SoundContext {
         const paramSep = spacelessCmd.indexOf(' ');
         if (paramSep === -1) {
             if (this.hasSoundGroup(cmd)) {
-                return this.soundGroups[cmd].getRandomSound(); // get a rando sound
+                return this.soundGroups[cmd].getRandomSound(); //get a random sound
             }
         }
 
@@ -58,7 +57,7 @@ class SoundContext {
             return this.soundGroups[command].getSpecificSound(param);
         }
 
-        // Could not find command, return null
+        //Could not find command, return null
         return null;
     }
 
@@ -68,6 +67,17 @@ class SoundContext {
 
     getSoundGroup(group) {
         return this.soundGroups[group];
+    }
+
+    /** Get a random sound if a sound exists, otherwise return null */
+    getRandomSound() {
+        if (Array.isArray(this.groupNames) && this.groupNames.length) {
+            //Get a num between 0 and sounds.length to pick a random sound in the array
+            const randomGroup = this.groupNames[Math.floor(Math.random() * Math.floor(this.groupNames.length))];
+            return this.soundGroups[randomGroup].getRandomSound();
+        } else {
+            return null;
+        }
     }
 }
 

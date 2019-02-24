@@ -55,12 +55,21 @@ class SoundBot {
 function handleMsg(bot, msg) {
     //filter out messages we dont care about or aren't commands
     if (msgIsCmd(msg, bot.prefix) && !msg.author.bot && msg.guild) {
+
+        //Get a help message
         if (msgIsHelpCmd(msg.content, bot.prefix)) {
-            // Get and print help
             const help = getHelpString(bot.context, msg.content, bot.prefix);
 
-            console.log(help);
-            msg.channel.send(help);
+            console.log(help); //print help message to debug log
+            msg.channel.send(help); //print help to discord
+
+        //play a random sound
+        } else if(msg.content === bot.prefix) {
+
+            console.log('playing a random sound');
+            handleSoundCmd(bot.context.getRandomSound(), msg.channel, msg.member);
+
+        //play a sound from a specific command
         } else {
             console.log(msg.content);
 
@@ -69,11 +78,11 @@ function handleMsg(bot, msg) {
 
             handleSoundCmd(soundPath, msg.channel, msg.member);
         }
-        //TODO eventually implement a reset command here that resets bot's sound context if required
+        //TODO eventually implement a reset command here that resets the bot's SoundContext if required
     }
 }
 
-/** Play a sound if it exists and the user is in */
+/** Play a sound if it exists and the user is in a voice chat channel */
 function handleSoundCmd(soundPath, msgChannel, member) {
     if (soundPath) {
         console.log('soundfile obtained, checking if user is a member of a vc...');
@@ -106,6 +115,8 @@ function handleSoundCmd(soundPath, msgChannel, member) {
             console.log(member.user.username + ' is not in a vc');
         }
     } else {
+        //To avoid spamming the discord with bot messages, don't do anything in the
+        //chat if a sound is typed incorrectly
         console.log('sound does not exist');
     }
 }
