@@ -5,8 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "bufferutil": "^3.0.5",
-    "discord.js": "^11.3.2",
-    "erlpack": "discordapp/erlpack",
+    "discord.js": "github:discordjs/discord.js",
+    "erlpack": "github:discordapp/erlpack",
     "eslint": "^4.19.1",
     "libsodium-wrappers": "^0.7.3",
     "node-opus": "^0.2.7",
