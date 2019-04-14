@@ -1,18 +1,23 @@
 {
   "name": "discord_clip_bot",
-  "version": "1.0.0",
-  "description": "Bot for discord, used to make funny sounds for friends in vc",
+  "version": "1.2.0",
+  "description": "A soundbot for discord with easy sound management",
   "main": "index.js",
   "dependencies": {
-    "bufferutil": "^4.0.1",
-    "discord.js": "github:discordjs/discord.js",
-    "eslint": "^4.19.1",
-    "opusscript": "0.0.6",
-    "uws": "^100.0.1"
+    "bufferutil": "3.0.5",
+    "discord.js": "github:discordjs/discord.js#97c196ca6ab1593101e20371914ca41dc7d2dae3",
+    "erlpack": "github:discordapp/erlpack#674ebfd3439ba4b7ce616709821d27630f7cdc61",
+    "libsodium-wrappers": "0.7.3",
+    "node-opus": "0.2.9",
+    "uws": "9.148.0",
+    "zlib-sync": "0.1.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "4.19.1"
+  },
   "scripts": {
-    "start": "node src/BotRunner.js"
+    "start": "node src/BotRunner.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "timfoil",
