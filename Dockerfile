@@ -1,11 +1,16 @@
-FROM node:10.1-alpine
+FROM node:12.18-alpine3.12
 
-RUN apk add --no-cache \
-ffmpeg=3.4-r1 \
-git=2.15.3-r0 \
-python2=2.7.15-r2 \
-make=4.2.1-r0 \
-g++=6.4.0-r5
+RUN apk update \ 
+    && apk upgrade \
+    && apk add --no-cache bash \
+    python3 \
+    build-base \
+    git \
+    libtool \
+    autoconf \
+    automake \
+    && ln -sf python3 /usr/bin/python
+
 
 WORKDIR /usr/app
 COPY package*.json ./
@@ -15,4 +20,7 @@ RUN npm install
 COPY . /usr/app 
 COPY Dockerfile /
 
-CMD ["npm", "start"]
+## leave commented until we update our src to work with newer discord.js release
+# CMD ["npm", "start"]
+
+ENTRYPOINT [ "/bin/bash" ]
