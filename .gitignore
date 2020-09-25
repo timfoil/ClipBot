@@ -100,9 +100,11 @@ typings/
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
 
 #begin project specific .gitignore
+*.code-workspace
 
 #Ignore config.json, contains bot token secrets
 #rename src/config.json.example to src/config.json and configure it to your specific needs instead
 src/config.json
 .vscode/launch.json
 sounds/
+
