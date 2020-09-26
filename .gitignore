@@ -89,9 +89,9 @@ typings/
 .env
 
 ### VisualStudioCode ###
-.vscode/*
+.vscode/
+.devcontainer/
 .history
-
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
 
