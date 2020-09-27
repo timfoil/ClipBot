@@ -10,9 +10,9 @@ class SoundBot {
      * @constructor
      */
     constructor(token, soundDir, prefix = '!') {
-        //This constructor has a default argument prefix that defaults to '!' if not explicitly given
+        // This constructor has a default argument prefix that defaults to '!' if not explicitly given
 
-        //Debug logging
+        // Debug logging
         console.log('Initializing Bot...');
 
         this.client = new Discord.Client();
@@ -34,7 +34,7 @@ class SoundBot {
             handleMsg(this, msg);
         });
 
-        //Debug Logging
+        // Debug Logging
         console.log('Successful initialization of SoundBot');
     }
 
@@ -86,8 +86,8 @@ function handleMsg(bot, msg) {
 function handleSoundCmd(soundPath, msgChannel, member) {
     if (soundPath) {
         console.log('soundfile obtained, checking if user is a member of a vc...');
-        //Check if user is in a voiceChat (note: old version was
-        //member.voiceChannel) if we need to revert
+        // Check if user is in a voiceChat (note: old version was
+        // member.voiceChannel) if we need to revert
         if (member.voice.channel) {
             console.log('guild member is in vc, joining vc...');
             member.voice.channel.join().then(connection => {
@@ -96,10 +96,10 @@ function handleSoundCmd(soundPath, msgChannel, member) {
                 //(note: function play() Used to be called playFile)
                 const disp = connection.play(soundPath); // play voice
                 console.log('sound invoked...');
-                disp.setVolume(0.2); //This can be modified but my sounds are fairly loud
+                disp.setVolume(0.2); // This can be modified but my sounds are fairly loud
                 disp.on('end', () => {
-                    //We stay in the channel because playing a sound after joining takes awhile
-                    //keep this here for debugging purposes
+                    // We stay in the channel because playing a sound after joining takes awhile
+                    // keep this here for debugging purposes
                     console.log('Finished playing sound');
                 });
 
@@ -108,15 +108,15 @@ function handleSoundCmd(soundPath, msgChannel, member) {
             }).then(() => console.log('sound played successfully'), console.log);
 
         } else {
-            //send user a message that they're not in a vc since they may not realize
+            // send user a message that they're not in a vc since they may not realize
             msgChannel.send('Hey ' + member.user.username + ', I can\'t play you'
                 + ' the sound since you\'re not in a voice chat. If you join one'
                 + ' I\'d be happy to play it for you.');
             console.log(member.user.username + ' is not in a vc');
         }
     } else {
-        //To avoid spamming the discord with bot messages, don't do anything in the
-        //chat if a sound is typed incorrectly
+        // To avoid spamming the discord with bot messages, don't do anything in the
+        // chat if a sound is typed incorrectly
         console.log('sound does not exist');
     }
 }

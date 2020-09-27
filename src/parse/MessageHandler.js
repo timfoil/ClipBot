@@ -32,17 +32,17 @@ module.exports = {
         const noPrefix = module.exports.stripPrefixFromCmd(msgStr, prefix);
         let helpQuery;
 
-        //The typical help command query
+        // The typical help command query
         if(noPrefix.startsWith('help')) {
-            //Get the help command without the '!help' (in default case),
-            //empty string if it is the standard help query
+            // Get the help command without the '!help' (in default case),
+            // empty string if it is the standard help query
             helpQuery = noPrefix.slice('help'.length, noPrefix.length).trim();
-        //if you put 'help' after the command, you should still get a help message
+        // if you put 'help' after the command, you should still get a help message
         } else if (noPrefix.trim().endsWith(' help')) {
             helpQuery = noPrefix.slice(0, noPrefix.lastIndexOf(' help')).trim();
         }
 
-        //return a specific message if the helpQuery exists
+        // return a specific message if the helpQuery exists
         if(helpQuery) {
             return generateSpecificHelpMsg(soundContext, helpQuery, prefix);
         } else {
