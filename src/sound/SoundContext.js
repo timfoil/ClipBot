@@ -18,10 +18,10 @@ class SoundContext {
     }
 
     refreshGroups() {
-        //create a map of soundgroups
+        // create a map of soundGroups
         this.soundGroups = {};
 
-        //create an array of soundGroups to loop over
+        // create an array of soundGroups to loop over
         this.groupNames = [];
 
         const groups = fs.readdirSync(this.dir);
@@ -47,17 +47,17 @@ class SoundContext {
             }
         }
 
-        //get sound group/collection
+        // get sound group/collection
         const command = cmd.slice(0, paramSep);
 
-        //get sound specifier (not including the space separator)
+        // get sound specifier (not including the space separator)
         const param = cmd.slice(paramSep + 1, cmd.length);
 
         if (this.hasSoundGroup(command) && this.soundGroups[command].hasSpecificSound(param)) {
             return this.soundGroups[command].getSpecificSound(param);
         }
 
-        //Could not find command, return null
+        // Could not find command, return null
         return null;
     }
 
@@ -72,7 +72,7 @@ class SoundContext {
     /** Get a random sound if a sound exists, otherwise return null */
     getRandomSound() {
         if (Array.isArray(this.groupNames) && this.groupNames.length) {
-            //Get a num between 0 and sounds.length to pick a random sound in the array
+            // Get a num between 0 and sounds.length to pick a random sound in the array
             const randomGroup = this.groupNames[Math.floor(Math.random() * Math.floor(this.groupNames.length))];
             return this.soundGroups[randomGroup].getRandomSound();
         } else {

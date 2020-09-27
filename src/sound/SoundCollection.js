@@ -3,7 +3,7 @@ const path = require('path');
 
 /**
  *  Class for a single sound group
-*/
+ */
 class SoundCollection {
 
     /**
@@ -19,13 +19,13 @@ class SoundCollection {
         this.soundMap = {};
 
         soundFiles.forEach(function(soundFile) {
-            //drop file suffix if it exists to get name of sound
+            // drop file suffix if it exists to get name of sound
             const soundPath = path.parse(soundFile);
 
-            //get the actual absolute location of the sound-file
+            // get the actual absolute location of the sound-file
             const absPath = path.resolve(path.join(dir, soundFile));
 
-            //put the absolute path in the map and index by sound name
+            // put the absolute path in the map and index by sound name
             this.soundMap[soundPath.name] = absPath;
             this.sounds.push(soundPath.name);
         }, this);
@@ -37,7 +37,7 @@ class SoundCollection {
             return null;
         }
 
-        //Get a num between 0 and sounds.length to pick a random sound in the array
+        // Get a num between 0 and sounds.length to pick a random sound in the array
         const specifier = this.sounds[Math.floor(Math.random() * Math.floor(this.sounds.length))];
         return this.getSpecificSound(specifier);
     }
