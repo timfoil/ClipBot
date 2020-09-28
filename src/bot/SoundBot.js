@@ -48,8 +48,8 @@ class SoundBot {
 }
 
 
-//Sneaky way of doing a private method
-//don't know if this is standard practice though...
+// Sneaky way of doing a private method
+// don't know if this is standard practice though...
 
 /** Handle a discord text chat message */
 function handleMsg(bot, msg) {
@@ -93,7 +93,7 @@ function handleSoundCmd(soundPath, msgChannel, member) {
             member.voice.channel.join().then(connection => {
                 console.log('connection established...');
 
-                //(note: function play() Used to be called playFile)
+                // (note: function play() Used to be called playFile)
                 const disp = connection.play(soundPath); // play voice
                 console.log('sound invoked...');
                 disp.setVolume(0.2); // This can be modified but my sounds are fairly loud
@@ -103,8 +103,8 @@ function handleSoundCmd(soundPath, msgChannel, member) {
                     console.log('Finished playing sound');
                 });
 
-                //print a success message to console if successful
-                //and direct error message to console.log if something happens
+                // print a success message to console if successful
+                // and direct error message to console.log if something happens
             }).then(() => console.log('sound played successfully'), console.log);
 
         } else {
