@@ -20,7 +20,7 @@ class SoundBot {
         this.prefix = prefix;
         this.token = token;
 
-        //Setup ready callback
+        // Setup ready callback
         this.client.on('ready', () => {
             console.log('Logged in! Ready for commands');
         });
@@ -42,7 +42,7 @@ class SoundBot {
      * Start this SoundBot
      */
     start() {
-        //Log in and begin listening for commands
+        // Log in and begin listening for commands
         this.client.login(this.token);
     }
 }
@@ -53,23 +53,23 @@ class SoundBot {
 
 /** Handle a discord text chat message */
 function handleMsg(bot, msg) {
-    //filter out messages we dont care about or aren't commands
+    // filter out messages we dont care about or aren't commands
     if (msgIsCmd(msg, bot.prefix) && !msg.author.bot && msg.guild) {
 
-        //Get a help message
+        // Get a help message
         if (msgIsHelpCmd(msg.content, bot.prefix)) {
             const help = getHelpString(bot.context, msg.content, bot.prefix);
 
-            console.log(help); //print help message to debug log
-            msg.channel.send(help); //print help to discord
+            console.log(help); // print help message to debug log
+            msg.channel.send(help); // print help to discord
 
-        //play a random sound
+        // play a random sound
         } else if(msg.content === bot.prefix) {
 
             console.log('playing a random sound');
             handleSoundCmd(bot.context.getRandomSound(), msg.channel, msg.member);
 
-        //play a sound from a specific command
+        // play a sound from a specific command
         } else {
             console.log(msg.content);
 

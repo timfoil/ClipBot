@@ -2,7 +2,8 @@ FROM node:12.18-alpine3.12
 
 RUN apk update \ 
     && apk upgrade \
-    && apk add --no-cache bash \
+    && apk add --no-cache \
+    # bash \ dev dependency
     python3 \
     build-base \
     git \
@@ -21,7 +22,8 @@ RUN npm install
 COPY . /usr/app 
 COPY Dockerfile /
 
-## leave commented until we update our src to work with newer discord.js release
-# CMD ["npm", "start"]
+ 
+# comment out switch to entrypoint for dev
+CMD ["npm", "start"]
 
-ENTRYPOINT [ "/bin/bash" ]
+# ENTRYPOINT [ "/bin/bash" ]
