@@ -9,6 +9,7 @@ RUN apk update \
     libtool \
     autoconf \
     automake \
+    ffmpeg \
     && ln -sf python3 /usr/bin/python
 
 
