@@ -1,3 +1,4 @@
+## Dev container without the bot's code or node_modules
 FROM node:12.18-alpine3.12 AS DevBuild
  
 RUN apk update \ 
@@ -13,6 +14,9 @@ RUN apk update \
     vim \
     ffmpeg \
     && ln -sf python3 /usr/bin/python
+
+## Dev container with the bot's code and node_modules 
+FROM DevBuild AS DebugBuild
 
 WORKDIR /usr/app
 
