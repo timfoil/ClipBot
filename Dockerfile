@@ -41,5 +41,7 @@ RUN apk update \
 WORKDIR /usr/app
 
 COPY --from=DebugBuild /usr/app .
- 
+
+RUN npm prune --production
+
 CMD ["npm", "start"]
