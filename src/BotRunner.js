@@ -1,7 +1,7 @@
 const SoundBot = require('./bot/SoundBot');
 
 // use destructuring to access config info in our config-file, fancy!
-const {token, prefix, soundDir} = require('./config.json');
+const {token, prefix, soundDir} = require('../config.json');
 
 try {
     console.log('Creating bot...');

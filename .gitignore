@@ -95,11 +95,14 @@ typings/
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
 
-#begin project specific .gitignore
+# begin project specific .gitignore
 *.code-workspace
 
-#Ignore config.json, contains bot token secrets
-#rename src/config.json.example to src/config.json and configure it to your specific needs instead
-src/config.json
-sounds/
+# Ignore config.json, contains bot token secrets
+# rename config.json.example to config.json and configure it to your specific needs
+config.json
 
+# old config.json location, keep it ignored so it doesn't accidentally get added
+src/config.json
+
+sounds/
