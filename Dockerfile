@@ -15,7 +15,7 @@ RUN apk update \
     ffmpeg \
     && ln -sf python3 /usr/bin/python
 
-## Dev container with the bot's code and node_modules 
+## Dev container with bot's code and node_modules 
 FROM DevBuild AS DebugBuild
 
 WORKDIR /usr/app
@@ -40,6 +40,6 @@ RUN apk update \
 
 WORKDIR /usr/app
 
-COPY --from=DevBuild /usr/app .
+COPY --from=DebugBuild /usr/app .
  
 CMD ["npm", "start"]
