@@ -16,13 +16,17 @@ RUN apk update \
 
 WORKDIR /usr/app
 
-COPY . /usr/app 
+COPY . . 
 
 RUN npm install
 
 COPY Dockerfile /
 
-## production build start
+# uncomment during development
+# CMD [ "/bin/bash" ]
+
+
+### production build start
 FROM node:12.18-alpine3.12 AS ProdBuild
 
 RUN apk update \ 
@@ -34,7 +38,4 @@ WORKDIR /usr/app
 
 COPY --from=DevBuild /usr/app .
  
-# comment out switch to entrypoint for dev
 CMD ["npm", "start"]
-
-# ENTRYPOINT [ "/bin/bash" ]
