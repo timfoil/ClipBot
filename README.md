@@ -10,7 +10,8 @@ docker build -t discord_bot .
 ```
 
 3. If your folder of sounds is in the current directory (you must specify a full path for docker 
-bind-mounts) run **one** of the following (dependant on your shell type) commands to start the docker container   
+bind-mounts) run **one** of the following `docker run` commands (depending on your shell type) to 
+start the docker container   
 
 ### Bash
 
