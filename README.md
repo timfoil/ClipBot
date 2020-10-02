@@ -1,5 +1,5 @@
 # discord_clip_bot
-Inspired by the original Airhornbot.  Makes it much easier to add and organize sounds and how they are played.
+Inspired by the original Airhornbot. Makes it possible to add new sounds and organize collections
 
 ## Building
 1. Install docker or ensure it is currently installed and up to date
