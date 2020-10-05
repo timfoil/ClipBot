@@ -1,7 +1,7 @@
 # discord_clip_bot
 Inspired by the original Airhornbot. Makes it possible to add new sounds and organize collections
 
-## Building with sounds
+## Building docker image
 1. Install docker or ensure it is currently installed and up to date
 2. Create a soundbot profile on the discord developer portal. This is the 'user' your bot will show 
 up as. Discord.js has a 
