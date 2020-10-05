@@ -1,4 +1,4 @@
-# discord_clip_bot
+# FoghornBot
 Inspired by the original Airhornbot. Makes it possible to add new sounds and organize collections
 
 ## Building docker image
@@ -18,25 +18,25 @@ more configurable and keeps the image small. Skip to 'Attaching your sounds usin
 you would like use this method, otherwise read on.
 
 ## Including your sounds with the image
-Delete the .dockerignore file in the project directory. Next, in the same discord_clip_bot 
+Delete the .dockerignore file in the project directory. Next, in the same FoghornBot 
 directory, include your directory containing the sound groups as 'sounds'. Finally, run this command:
 
 ``` bash 
-docker build -t discord_bot .
+docker build -t foghornBot .
 ```
 
 All of your sounds should be included in the generated image. If you want to add or change the 
 sounds you'll have to re-run the command to rebuild the image. To start the bot simply run:
 
 ``` bash
-docker run -dit discord_bot
+docker run -dit foghornBot
 ```
 
 ## Attaching your sounds using a bind mount 
-3. While in the discord_bot directory build the docker container with:
+3. While in the foghornBot directory build the docker container with:
 
 ``` bash
-docker build -t discord_bot .
+docker build -t foghornBot .
 ```
 
 4. If your folder of sounds is in the current directory (you must specify a full path for docker 
@@ -46,13 +46,13 @@ start the docker container
 ### Bash
 
 ``` bash
-docker run -it -v $(PWD)/sounds:/usr/app/sounds discord_bot
+docker run -it -v $(PWD)/sounds:/usr/app/sounds foghornBot
 ```
 
 ### Windows Powershell 
 
 ``` bash
-docker run -it -v ${PWD}\sounds:/usr/app/sounds discord_bot
+docker run -it -v ${PWD}\sounds:/usr/app/sounds foghornBot
 ```
 
 Where sounds is a directory containing named directories of sound groups
