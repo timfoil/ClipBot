@@ -66,13 +66,13 @@ While your bot is running you should be able to run:
 docker ps
 ``` 
 
-from the commandline to get the id of the running container. Using this container id you can stop 
+To get the id of the running container. Using this container id you can stop 
 your bot like this:
 
 ``` bash
 docker kill <container-id>
 ```
-Where <container-id> is replaced with the actual id 
+Where `<container-id>` is replaced with the actual id 
 
 The directory structure should look like this
 TODO IMAGE of directory structure
