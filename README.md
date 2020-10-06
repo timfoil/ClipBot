@@ -1,18 +1,19 @@
 # FoghornBot
-Inspired by the original Airhornbot. Makes it possible to add new sounds and organize collections
+Inspired by the original Airhornbot. Makes it possible to add new sounds and organize your own sound collections
 
 ## Sound organization
 Sounds are typically managed in a single directory named sounds. This folder contains all the 
 sounds in the project. However, sound files are not directly added to the sounds folder, they must 
-be added to a nested folder which acts as a "sound-group". Groups contain 1 or more sounds 
+be added to a nested folder which acts as a "sound-group". Groups contain one or more sounds 
 that are related to each other. A typical directory structure might look like this:
 
 ![](sound_layout.JPG?raw=true)
 
-Notice that no sounds reside directly in the sounds directory. 
+Notice that no sounds reside directly in the sounds directory. Instead they live in sound-group 
+subdirectories.
 
 A discord user can play a random sound from a sound-group in a voice channel by typing the bot's 
-prefix and name of a sound-group:
+prefix and the name of a sound-group:
 
 ```
 !ayaya
@@ -115,5 +116,3 @@ docker kill <container-id>
 ```
 Where `<container-id>` is replaced with the actual id 
 
-The directory structure should look like this
-TODO IMAGE of directory structure
