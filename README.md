@@ -21,7 +21,7 @@ prefix and the name of a sound-group:
 ```
 
 This command will play a random sound from the ayaya sound-group (assuming '!' has been set to the 
-bot's prefix). If we specifically wanted to play the ayaya1.ogg soundfile we could type:
+bot's prefix). If a user specifically wanted to play the ayaya1.ogg soundfile we could type:
 
 ```
 !ayaya ayaya1
