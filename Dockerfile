@@ -13,6 +13,7 @@ RUN apk update \
     automake \
     vim \
     ffmpeg \
+    openssh \
     && ln -sf python3 /usr/bin/python
 
 ## Dev container with bot's code and node_modules 

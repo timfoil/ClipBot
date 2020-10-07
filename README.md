@@ -1,5 +1,6 @@
-# FoghornBot
-Inspired by the original Airhornbot. Makes it possible to add new sounds and organize your own sound collections
+# ClipBot
+Inspired by the original (Airhorn Bot)[https://github.com/discord/airhornbot]. Makes it possible to 
+add new sounds and organize your own sound collections.
 
 ## Sound organization
 Sounds are typically managed in a single directory named sounds. This folder contains all the 
@@ -61,25 +62,25 @@ more configurable and keeps the image small. Skip to 'Attaching your sounds usin
 you would like use this method, otherwise read on.
 
 ## Including your sounds with the image
-Delete the .dockerignore file in the project directory. Next, in the same FoghornBot 
+Delete the .dockerignore file in the project directory. Next, in the same ClipBot 
 directory, include your directory containing the sound groups as 'sounds'. Finally, run this command:
 
 ``` bash 
-docker build -t foghornBot .
+docker build -t clipBot .
 ```
 
 All of your sounds should be included in the generated image. If you want to add or change the 
 sounds you'll have to re-run the command to rebuild the image. To start the bot simply run:
 
 ``` bash
-docker run -dit foghornBot
+docker run -dit clipBot
 ```
 
 ## Attaching your sounds using a bind mount 
-3. While in the foghornBot directory build the docker container with:
+3. While in the clipBot directory build the docker container with:
 
 ``` bash
-docker build -t foghornBot .
+docker build -t clipBot .
 ```
 
 4. If your folder of sounds is in the current directory (you must specify a full path for docker 
@@ -89,13 +90,13 @@ start the docker container
 ### Bash
 
 ``` bash
-docker run -it -v $(PWD)/sounds:/usr/app/sounds foghornBot
+docker run -it -v $(PWD)/sounds:/usr/app/sounds clipBot
 ```
 
 ### Windows Powershell 
 
 ``` bash
-docker run -it -v ${PWD}\sounds:/usr/app/sounds foghornBot
+docker run -it -v ${PWD}\sounds:/usr/app/sounds clipBot
 ```
 
 Where sounds is a directory containing named directories of sound groups
