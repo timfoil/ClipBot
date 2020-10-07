@@ -1,5 +1,5 @@
 # ClipBot
-Inspired by the original (Airhorn Bot)[https://github.com/discord/airhornbot]. Makes it possible to 
+Inspired by the original [Airhorn Bot](https://github.com/discord/airhornbot). Makes it possible to 
 add new sounds and organize your own sound collections.
 
 ## Sound organization
