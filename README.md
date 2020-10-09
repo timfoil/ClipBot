@@ -83,25 +83,25 @@ and more configurable. Skip to 'Attaching your sounds using a bind mount' if you
 method, otherwise read on.
 
 ## Including your sounds with the image
-Delete the .dockerignore file in the project directory. Next, in the same ClipBot 
-directory, include your directory containing the sound groups as 'sounds'. Finally, run this command:
+Delete the .dockerignore file in the project directory. Next, in the same ClipBot directory, include 
+your directory containing the sound groups as 'sounds'. Finally, run this command:
 
 ``` bash 
-docker build -t clipBot .
+docker build --target clip-bot-sounds -t clip-bot 
 ```
 
 All of your sounds should be included in the generated image. If you want to add or change the 
 sounds you'll have to re-run the command to rebuild the image. To start the bot simply run:
 
 ``` bash
-docker run -dit clipBot
+docker run -dit clip-bot
 ```
 
 ## Attaching your sounds using a bind mount 
-While in the clipBot directory build the docker container with:
+While in the ClipBot directory build the docker container with:
 
 ``` bash
-docker build -t clipBot .
+docker build -t clip-bot .
 ```
 
 If your folder of sounds is in the current directory (you must specify a full path for docker 
@@ -111,13 +111,13 @@ start the docker container
 ### Bash
 
 ``` bash
-docker run -it -v $(PWD)/sounds:/usr/app/sounds clipBot
+docker run -it -v $(PWD)/sounds:/usr/app/sounds clip-bot
 ```
 
 ### Windows Powershell 
 
 ``` bash
-docker run -it -v ${PWD}\sounds:/usr/app/sounds clipBot
+docker run -it -v ${PWD}\sounds:/usr/app/sounds clip-bot
 ```
 
 Where sounds is a directory containing named directories of sound groups
