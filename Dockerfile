@@ -1,5 +1,5 @@
 ## Dev container without the bot's code or node_modules
-FROM node:12.18-alpine3.12 AS DevBuild
+FROM node:12.18-alpine3.12 AS dev-build
  
 RUN apk update \ 
     && apk upgrade \
@@ -17,7 +17,7 @@ RUN apk update \
     && ln -sf python3 /usr/bin/python
 
 ## Dev container with bot's code and node_modules 
-FROM DevBuild AS DebugBuild
+FROM dev-build AS base-build
 
 WORKDIR /usr/app
 
@@ -27,12 +27,10 @@ RUN npm install
 
 COPY Dockerfile /
 
-# uncomment during development
-# CMD [ "/bin/bash" ]
+### production builds start ###
 
-
-### production build start
-FROM node:12.18-alpine3.12 AS ProdBuild
+## Include sounds in image
+FROM node:12.18-alpine3.12 AS clip-bot-sounds
 
 RUN apk update \ 
     && apk upgrade \
@@ -41,8 +39,14 @@ RUN apk update \
 
 WORKDIR /usr/app
 
-COPY --from=DebugBuild /usr/app .
+COPY --from=base-build /usr/app .
 
 RUN npm prune --production
 
 CMD ["npm", "start"]
+
+## No sounds in image
+FROM clip-bot-sounds AS clip-bot
+
+# remove sound folder if it exists
+RUN rm -rf sounds
