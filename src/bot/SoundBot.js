@@ -91,12 +91,12 @@ function handleSoundCmd(soundPath, msgChannel, member, cache) {
         // member.voiceChannel) if we need to revert
         if (member.voice.channel) {
             console.log('guild member is in vc, joining vc...');
-            
+
             // Remember guild-id for 15 minute timeout
             if (cache.has(member.guild.id)) {
                 clearTimeout(cache.get(member.guild.id));
-            } 
-            
+            }
+
             member.voice.channel.join().then(connection => {
                 console.log('connection established...');
 
@@ -106,15 +106,15 @@ function handleSoundCmd(soundPath, msgChannel, member, cache) {
                 disp.setVolume(0.2); // This can be modified but my sounds are fairly loud
                 disp.on('finish', () => {
                     // Stay in the channel because playing a sound after joining takes awhile
-                    let timeOut = setTimeout(() => {
+                    const timeOut = setTimeout(() => {
                         console.log(`exiting voice channel ${member.guild.id}`);
-                        cache.delete(member.guild.id); 
+                        cache.delete(member.guild.id);
                         connection.disconnect();
-                    }, DEBUG_TIMEOUT);
-                    
+                    }, CHANNEL_TIMEOUT);
+
                     cache.set(member.guild.id, timeOut);
-                   // keep this here for debugging purposes
-                   console.log('Finished playing sound');
+                    // keep this here for debugging purposes
+                    console.log('Finished playing sound');
                 });
 
                 // print a success message to console if successful
