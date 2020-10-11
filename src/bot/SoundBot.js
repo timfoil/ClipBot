@@ -19,6 +19,7 @@ class SoundBot {
         this.context = new SoundContext(soundDir);
         this.prefix = prefix;
         this.token = token;
+        this.cache = new Map();
 
         // Setup ready callback
         this.client.on('ready', () => {
@@ -47,9 +48,11 @@ class SoundBot {
     }
 }
 
+// Timeout for leaving voice-channel
+const CHANNEL_TIMEOUT = 900000;
+const DEBUG_TIMEOUT = 10000; // 10s
 
 // Sneaky way of doing a private method
-// don't know if this is standard practice though...
 
 /** Handle a discord text chat message */
 function handleMsg(bot, msg) {
@@ -90,6 +93,12 @@ function handleSoundCmd(soundPath, msgChannel, member) {
         // member.voiceChannel) if we need to revert
         if (member.voice.channel) {
             console.log('guild member is in vc, joining vc...');
+            
+            // Remember guild-id for 15 minute timeout
+            if (this.cache.has(member.guild.id)) {
+                clearTimeout(this.cache.get(member.guild.id));
+            } 
+            
             member.voice.channel.join().then(connection => {
                 console.log('connection established...');
 
@@ -98,9 +107,16 @@ function handleSoundCmd(soundPath, msgChannel, member) {
                 console.log('sound invoked...');
                 disp.setVolume(0.2); // This can be modified but my sounds are fairly loud
                 disp.on('end', () => {
-                    // We stay in the channel because playing a sound after joining takes awhile
-                    // keep this here for debugging purposes
-                    console.log('Finished playing sound');
+                    // Stay in the channel because playing a sound after joining takes awhile
+                    let timeOut = setTimeout(() => {
+                        console.log(`exiting voice channel ${member.guild.id}`);
+                        this.cache.delete(member.guild.id); 
+                        connection.disconnect();
+                    }, DEBUG_TIMEOUT);
+                    
+                    this.cache.set(member.guild.id, timeOut);
+                   // keep this here for debugging purposes
+                   console.log('Finished playing sound');
                 });
 
                 // print a success message to console if successful
