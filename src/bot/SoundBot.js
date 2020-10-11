@@ -48,9 +48,7 @@ class SoundBot {
     }
 }
 
-// Timeout for leaving voice-channel
-const CHANNEL_TIMEOUT = 900000;
-const DEBUG_TIMEOUT = 10000; // 10s
+const CHANNEL_TIMEOUT = 900000; // 15-min timeout before leaving voice channel
 
 // Sneaky way of doing a private method
 
@@ -70,7 +68,7 @@ function handleMsg(bot, msg) {
         } else if(msg.content === bot.prefix) {
 
             console.log('playing a random sound');
-            handleSoundCmd(bot.context.getRandomSound(), msg.channel, msg.member);
+            handleSoundCmd(bot.context.getRandomSound(), msg.channel, msg.member, bot.cache);
 
         // play a sound from a specific command
         } else {
@@ -79,14 +77,14 @@ function handleMsg(bot, msg) {
             const cmd = stripPrefixFromCmd(msg.content, bot.prefix);
             const soundPath = bot.context.getSoundFromGroup(cmd);
 
-            handleSoundCmd(soundPath, msg.channel, msg.member);
+            handleSoundCmd(soundPath, msg.channel, msg.member, bot.cache);
         }
         //TODO eventually implement a reset command here that resets the bot's SoundContext if required
     }
 }
 
 /** Play a sound if it exists and the user is in a voice chat channel */
-function handleSoundCmd(soundPath, msgChannel, member) {
+function handleSoundCmd(soundPath, msgChannel, member, cache) {
     if (soundPath) {
         console.log('soundfile obtained, checking if user is a member of a vc...');
         // Check if user is in a voiceChat (note: old version was
@@ -95,8 +93,8 @@ function handleSoundCmd(soundPath, msgChannel, member) {
             console.log('guild member is in vc, joining vc...');
             
             // Remember guild-id for 15 minute timeout
-            if (this.cache.has(member.guild.id)) {
-                clearTimeout(this.cache.get(member.guild.id));
+            if (cache.has(member.guild.id)) {
+                clearTimeout(cache.get(member.guild.id));
             } 
             
             member.voice.channel.join().then(connection => {
@@ -106,15 +104,15 @@ function handleSoundCmd(soundPath, msgChannel, member) {
                 const disp = connection.play(soundPath); // play voice
                 console.log('sound invoked...');
                 disp.setVolume(0.2); // This can be modified but my sounds are fairly loud
-                disp.on('end', () => {
+                disp.on('finish', () => {
                     // Stay in the channel because playing a sound after joining takes awhile
                     let timeOut = setTimeout(() => {
                         console.log(`exiting voice channel ${member.guild.id}`);
-                        this.cache.delete(member.guild.id); 
+                        cache.delete(member.guild.id); 
                         connection.disconnect();
                     }, DEBUG_TIMEOUT);
                     
-                    this.cache.set(member.guild.id, timeOut);
+                    cache.set(member.guild.id, timeOut);
                    // keep this here for debugging purposes
                    console.log('Finished playing sound');
                 });
